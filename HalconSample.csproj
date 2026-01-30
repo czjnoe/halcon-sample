@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="config.ini" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="config.ini">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="ini-parser-netstandard" Version="2.5.3" />
+        <PackageReference Include="MVTec.HalconDotNet-Windows" Version="24111.0.0" />
+        <PackageReference Include="S7netplus" Version="0.20.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Views\LogForm.cs">
+            <SubType>Form</SubType>
+        </Compile>
+        <Compile Update="Views\HalconProjects\Configuration.cs">
+            <SubType>UserControl</SubType>
+        </Compile>
+        <Compile Update="Views\HalconProjects\Threshold.cs">
+          <SubType>Form</SubType>
+        </Compile>
+        <Compile Update="Views\CameraConfig.cs">
+          <SubType>Form</SubType>
+        </Compile>
+        <Compile Update="Views\PlcConfig.cs">
+          <SubType>Form</SubType>
+        </Compile>
+    </ItemGroup>
+
+</Project>
