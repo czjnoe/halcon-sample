@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace HalconCalibration.Views.HalconProjects;
 
@@ -35,6 +35,7 @@ partial class Configuration
         tableLayoutPanel1 = new TableLayoutPanel();
         thresholdBtn = new Button();
         qrCodeBtn = new Button();
+        templateMatchBtn = new Button();
         panel1.SuspendLayout();
         tableLayoutPanel1.SuspendLayout();
         SuspendLayout();
@@ -55,6 +56,7 @@ partial class Configuration
         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         tableLayoutPanel1.Controls.Add(thresholdBtn, 0, 0);
         tableLayoutPanel1.Controls.Add(qrCodeBtn, 1, 0);
+        tableLayoutPanel1.Controls.Add(templateMatchBtn, 0, 1);
         tableLayoutPanel1.Dock = DockStyle.Fill;
         tableLayoutPanel1.Location = new Point(0, 0);
         tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -86,6 +88,17 @@ partial class Configuration
         qrCodeBtn.Text = "二维码识别";
         qrCodeBtn.UseVisualStyleBackColor = true;
         qrCodeBtn.Click += qrCodeBtn_Click;
+        //
+        // templateMatchBtn
+        //
+        templateMatchBtn.Dock = DockStyle.Fill;
+        templateMatchBtn.Location = new Point(3, 63);
+        templateMatchBtn.Name = "templateMatchBtn";
+        templateMatchBtn.Size = new Size(150, 54);
+        templateMatchBtn.TabIndex = 2;
+        templateMatchBtn.Text = "模板匹配";
+        templateMatchBtn.UseVisualStyleBackColor = true;
+        templateMatchBtn.Click += templateMatchBtn_Click;
         // 
         // Calibration
         // 
@@ -101,6 +114,7 @@ partial class Configuration
 
     private System.Windows.Forms.Button thresholdBtn;
     private System.Windows.Forms.Button qrCodeBtn;
+    private System.Windows.Forms.Button templateMatchBtn;
 
     private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 

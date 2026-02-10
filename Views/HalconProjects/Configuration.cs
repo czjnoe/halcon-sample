@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using HalconCalibration.Common;
@@ -13,6 +13,7 @@ public partial class Configuration : UserControl {
     private HWindow? _window;
 
     private Threshold? _threshold;
+    private TemplateMatchingForm? _templateMatchingForm;
 
     // 像素坐标的元组。 
     private HTuple _pixelRow = new();
@@ -93,6 +94,17 @@ public partial class Configuration : UserControl {
         }
     }
 
+    // 打开模板匹配窗口
+    private void templateMatchBtn_Click(object sender, EventArgs e) {
+        if (_templateMatchingForm == null || _templateMatchingForm.IsDisposed) {
+            _templateMatchingForm = new TemplateMatchingForm(_window);
+            _templateMatchingForm.Show();
+        }
+        else {
+            _templateMatchingForm.Close();
+        }
+    }
+
     // 二维码识别按钮点击事件
     private void qrCodeBtn_Click(object sender, EventArgs e) {
         try {
@@ -128,5 +140,6 @@ public partial class Configuration : UserControl {
     // 关闭窗口就释放阈值分割窗口
     private void FormClosing(object? sender, EventArgs e) {
         _threshold?.Dispose();
+        _templateMatchingForm?.Dispose();
     }
 }
