@@ -14,6 +14,7 @@ public partial class Configuration : UserControl {
 
     private Threshold? _threshold;
     private TemplateMatchingForm? _templateMatchingForm;
+    private QRCodeForm? _qrCodeForm;
 
     // 像素坐标的元组。 
     private HTuple _pixelRow = new();
@@ -107,33 +108,13 @@ public partial class Configuration : UserControl {
 
     // 二维码识别按钮点击事件
     private void qrCodeBtn_Click(object sender, EventArgs e) {
-        try {
-            if (CameraCtrl.Instance.Image == null) {
-                Logger.Instance.AddLog("图像未加载，请先拍照", LogLevel.Error);
-                MessageBox.Show("图像未加载，请先拍照");
-                return;
-            }
-
-            // 执行二维码识别
-            if (QRCodeCtrl.Instance.HandleQRCode(_window, out var msg)) {
-                RunOnUIThread(() => {
-                    Logger.Instance.AddLog($"二维码识别成功：{QRCodeCtrl.Instance.QRCodeString}");
-                    if (QRCodeCtrl.Instance.Row != null && QRCodeCtrl.Instance.Column != null) {
-                        Logger.Instance.AddLog($"二维码位置，行：{QRCodeCtrl.Instance.Row}，列：{QRCodeCtrl.Instance.Column}");
-                    }
-                });
-            }
-            else {
-                RunOnUIThread(() => {
-                    Logger.Instance.AddLog($"二维码识别失败：{msg}", LogLevel.Warn);
-                });
-            }
+        // 打开/关闭二维码识别窗口（与模板匹配窗口风格一致）
+        if (_qrCodeForm == null || _qrCodeForm.IsDisposed) {
+            _qrCodeForm = new QRCodeForm(_window);
+            _qrCodeForm.Show();
         }
-        catch (Exception exception) {
-            RunOnUIThread(() => {
-                Logger.Instance.AddLog($"二维码识别操作失败：{exception.Message}", LogLevel.Error);
-                MessageBox.Show($@"二维码识别操作失败：{exception.Message}");
-            });
+        else {
+            _qrCodeForm.Close();
         }
     }
 
@@ -141,5 +122,6 @@ public partial class Configuration : UserControl {
     private void FormClosing(object? sender, EventArgs e) {
         _threshold?.Dispose();
         _templateMatchingForm?.Dispose();
+        _qrCodeForm?.Dispose();
     }
 }
